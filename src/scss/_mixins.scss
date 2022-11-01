@@ -1,0 +1,870 @@
+// margin xaxis center
+
+@mixin mx_auto {
+    margin: {
+        left: auto;
+        right: auto;
+    }
+}
+
+// img change when hover
+@mixin imgChange($width, $height) {
+    &:hover {
+        .hidden {
+            opacity: 1;
+        }
+
+        .visible {
+            opacity: 0;
+        }
+    }
+
+    span {
+        position: relative;
+        width: $width;
+        height: $height;
+        display: block;
+    }
+
+    .visible,
+    .hidden {
+        position: absolute;
+        @include pseudo();
+        @include pseudo_pos(0);
+        transition: .4s;
+        -webkit-transition: .4s;
+        -moz-transition: .4s;
+        -ms-transition: .4s;
+        -o-transition: .4s;
+    }
+
+    .hidden {
+        opacity: 0;
+    }
+
+}
+
+// opacity change when hover
+
+@mixin opacity() {
+    .hidden {
+        opacity: 1;
+    }
+
+    .visible {
+        opacity: 0;
+    }
+}
+
+
+// owl dots 
+
+// @mixin owlDots() {
+//     &.owl-carousel  {
+//         .owl-dots {
+//             position: absolute;
+//             width: 100%;
+//             @include flexCenter();
+//             @include pseudo();
+//         }
+//     }
+// }
+
+// overlay darkshade 
+
+@mixin overlay() {
+    @include darkOverlay();
+
+    .overlay {
+        &::after {
+            opacity: 0;
+        }
+    }
+
+    &:hover {
+        .hover_text {
+            transform: translate(-50%, -50%) scale(1);
+            -webkit-transform: translate(-50%, -50%) scale(1);
+            -moz-transform: translate(-50%, -50%) scale(1);
+            -ms-transform: translate(-50%, -50%) scale(1);
+            -o-transform: translate(-50%, -50%) scale(1);
+        }
+
+        .overlay {
+            &::after {
+                opacity: .64;
+            }
+        }
+    }
+
+    .hover_text {
+        @include pseudo();
+        @include transition();
+        z-index: 2;
+        color: #fff;
+        transform: translate(-50%, -50%) scale(0);
+        -webkit-transform: translate(-50%, -50%) scale(0);
+        -moz-transform: translate(-50%, -50%) scale(0);
+        -ms-transform: translate(-50%, -50%) scale(0);
+        -o-transform: translate(-50%, -50%) scale(0);
+        left: 50%;
+        top: 50%;
+
+
+    }
+}
+
+@mixin scale($size) {
+    transform: scale($size);
+    -webkit-transform: scale($size);
+    -moz-transform: scale($size);
+    -ms-transform: scale($size);
+    -o-transform: scale($size);
+}
+
+@mixin transition($duration: .4s) {
+    transition: $duration;
+    -webkit-transition: $duration;
+    -moz-transition: $duration;
+    -ms-transition: $duration;
+    -o-transition: $duration;
+}
+
+@mixin darkOverlay($bg:#000, $opacity: .6) {
+    .overlay {
+        position: relative;
+
+        &::after {
+            @include pseudo();
+            @include pseudo_pos(0);
+            background-color: $bg;
+            opacity: $opacity;
+            @include transition();
+        }
+    }
+
+
+}
+
+// button hover
+@mixin btnhover($bg_color:transparent, $textColor, $psuedo:after) {
+    position: relative;
+    z-index: 1;
+
+
+    &::#{$psuedo} {
+        @include pseudo();
+        @include pseudo_pos(0);
+        background: $bg_color;
+        transition: .4s ease-in-out;
+        -webkit-transition: .4s ease-in-out;
+        -moz-transition: .4s ease-in-out;
+        -ms-transition: .4s ease-in-out;
+        -o-transition: .4s ease-in-out;
+        z-index: 0;
+        height: 0;
+        z-index: -1;
+    }
+
+    &:hover {
+        color: $textColor;
+
+        &::#{$psuedo} {
+            height: 100%;
+        }
+    }
+}
+
+// grid
+
+
+@mixin grid($direction: row, $column:3, $spacing: 15px, $alignment:left,
+    $bottomSpacing:24px, $full:false, $mb: 24px, $swapped: false, $widthChange: false, $wchange_no:2, $wchange: 50%) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: $alignment;
+
+    $col: $spacing * ($column - 1);
+
+    @if($direction==row) {
+
+        &>* {
+            max-width: calc((100% - #{$col}) / $column);
+            flex-basis: calc((100% - #{$col}) / $column);
+            margin-bottom: $spacing;
+            margin-right: $spacing;
+
+            &:nth-child(#{$column + 1}n) {
+                margin-right: $spacing;
+                ;
+            }
+
+            &:nth-child(#{$column}n) {
+                margin-right: 0;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            @include mq(mobile) {
+
+                &:nth-child(#{$column}n) {
+                    margin-right: $spacing;
+                }
+
+            }
+        }
+    }
+
+    @else {
+        flex-direction: column;
+
+        &:nth-child(#{$column + 1}n) {
+            margin-right: 0;
+        }
+
+        &:nth-child(#{$column}n) {
+            margin-right: 0;
+        }
+
+        &>* {
+            margin-right: 0;
+            margin-bottom: $spacing;
+            @include flexWidth(100%);
+        }
+    }
+
+    @if $full {
+        &>* {
+            max-width: 100% !important;
+            flex-basis: 100% !important;
+            margin-right: 0 !important;
+        }
+    }
+
+    @if $swapped {
+
+        &>figure {
+            margin-top: $spacing;
+
+        }
+    }
+
+    @if $widthChange {
+        &>li {
+            margin-right: $spacing;
+
+            &:nth-child(-n+ #{$wchange_no}) {
+                @include flexWidth(calc($wchange - $spacing));
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+// changed width 2 column
+@mixin gridChange($spacing:20px, $w1:59%, $w2:41%) {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -($spacing / 2);
+    margin-right: -($spacing / 2);
+
+    &>* {
+        padding: 0 ($spacing / 2);
+        margin-bottom: $spacing;
+
+        &:nth-child(1n) {
+            @include flexWidth($w1);
+        }
+
+        &:nth-child(2n) {
+            @include flexWidth($w2);
+        }
+    }
+}
+
+@mixin flexWidth($width) {
+    flex-basis: $width;
+    max-width: $width;
+}
+
+@mixin flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin listdot($width: 8px, $height: 8px, $bg: red, $rightSpace: 8px) {
+    position: relative;
+
+    &>* {
+        display: flex;
+        align-items: center;
+
+        &::before {
+            content: "";
+            display: block;
+            width: $width;
+            height: $height;
+            background-color: $bg;
+            margin-right: $rightSpace;
+            @include borderRadius(50%);
+            overflow: hidden;
+        }
+    }
+}
+
+// for pseudo elements
+
+@mixin pseudo($display: block, $pos: absolute, $content: '') {
+    content: $content;
+    display: $display;
+    position: $pos;
+
+}
+
+@mixin pseudo_pos($top:0, $right:0, $bottom:0, $left:0) {
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}
+
+
+
+// Font styling
+
+@mixin f_styling($size: false, $colour: false, $weight: false, $lh: false) {
+    font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+
+    @if $size {
+        font-size: $size;
+    }
+
+    @if $colour {
+        color: $colour;
+    }
+
+    @if $weight {
+        font-weight: $weight;
+    }
+
+    @if $lh {
+        line-height: $lh;
+    }
+}
+
+@mixin container() {
+    max-width: 1415px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    @include mq(smscreen) {
+        padding-left: 60px;
+        padding-right: 60px
+    }
+
+    @include mq(tablet) {
+        padding-left: 30px;
+        padding-right: 30px
+    }
+
+    @include mq(mobile) {
+        padding-left: 22px;
+        padding-right: 22px
+    }
+}
+
+@mixin borderRadius($radius) {
+    border-radius: $radius;
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    -o-border-radius: $radius;
+}
+
+@mixin wide {
+    @include container();
+    max-width: 1696px;
+
+}
+
+@mixin full($objectfit:cover) {
+    width: 100%;
+    height: 100%;
+    object-fit: $objectfit;
+}
+
+// background
+// bg img
+$imagedir:'../images/';
+
+@mixin bg($filename, $position:0 0, $repeat: no-repeat) {
+    background: transparent url(#{$imagedir}#{$filename}) $repeat $position;
+    background-size: cover;
+}
+
+@mixin bgfull($filename, $position:0 0, $repeat: no-repeat) {
+    background: transparent url(#{$imagedir}#{$filename}) $repeat $position;
+    background-size: 100%;
+}
+
+
+
+@mixin inset($left:0, $right:0, $top: 0, $bottom: 0, ) {
+    position: absolute;
+    left: $left;
+    right: $right;
+    top: $top;
+    bottom: $bottom;
+
+}
+
+@mixin align-center($top:50%, $left:50%) {
+    left: $left;
+    top: $top;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
+
+// For placeholder
+
+@mixin placeholder {
+    &.placeholder {
+        @content;
+    }
+
+    &:-moz-placeholder {
+        @content;
+    }
+
+    &::-moz-placeholder {
+        @content;
+    }
+
+    &:-ms-input-placeholder {
+        @content;
+    }
+
+    &::-webkit-input-placeholder {
+        @content;
+    }
+}
+
+// making arrow
+
+@mixin arrow($direction: down, $size: 5px, $color: #555) {
+    width: 0;
+    height: 0;
+
+    @if ($direction==left) {
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-right: $size solid $color;
+    }
+
+    @else if ($direction==right) {
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-left: $size solid $color;
+    }
+
+    @else if ($direction==down) {
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-top: $size solid $color;
+    }
+
+    @else {
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-bottom: $size solid $color;
+    }
+}
+
+@mixin mainLogo($width: 209px  , $smscreen: 180px  , $laptop: 140px  , $tablet: 120px  , $phablet:120px, $mobile:100px){
+    max-width: $width;
+    display: block;
+    img{
+        @include full(contain);
+    }
+    @include mq(smscreen) {
+        max-width: $smscreen
+    }
+
+    @include mq(laptop) {
+        max-width: $laptop;
+    }
+
+    @include mq(tablet) {
+        max-width: $tablet;
+    }
+
+    @include mq(phablet) {
+        max-width: $phablet;
+    }
+    @include mq(mobile) {
+        max-width: $mobile;
+    }
+}
+// Media Height 
+
+@mixin mediaHeight() {
+
+    &>li {
+        height: 330px;
+
+        figure {
+            height: 100%
+        }
+
+        @include mq(smscreen) {
+            height: ((330px * 90) / 100);
+        }
+
+        @include mq(laptop) {
+            height: ((330px * 75) / 100);
+        }
+
+        @include mq(phablet) {
+            height: ((330px * 64) / 100);
+        }
+
+        @include mq(mobile) {
+            height: ((330px * 60) / 100);
+        }
+    }
+
+}
+
+@mixin mediaHeight2($height1: 268px, $height2: 230px, $height3: 200px, $height4: 190px, $height5: 180px) {
+    height: $height1;
+    max-height: $height1;
+    overflow: hidden;
+
+    @include mq(smscreen) {
+        height: $height2;
+        max-height: $height2;
+    }
+
+    @include mq(tablet) {
+        height: $height3;
+        max-height: $height3;
+    }
+
+    @include mq(phablet) {
+        height: $height4;
+        max-height: $height4;
+    }
+
+    @include mq(mobile) {
+        height: $height5;
+        max-height: $height5;
+    }
+}
+
+@mixin wholeTopPadding($padding1: 0, $padding2: 0, $padding3: 0, $padding4: 0, $padding5: 0) {
+    padding-top: $padding1;
+
+    @include mq(smscreen) {
+        padding-top: $padding2;
+    }
+
+    @include mq(tablet) {
+        padding-top: $padding3;
+    }
+
+    @include mq(phablet) {
+        padding-top: $padding4;
+    }
+
+    @include mq(mobile) {
+        padding-top: $padding5;
+    }
+}
+
+// responsive
+
+@mixin reducer($single,
+    $arrayName,
+    $style,
+    $smscreen:89,
+    $laptop: 82,
+    $tablet:80,
+    $phablet:72,
+    $mobile:68) {
+  
+
+    @if($single==single) {
+
+        @each $class,
+        $spacing in $arrayName {
+            .#{$class} {
+                #{$style}: $spacing;
+            }
+        }
+        @include mq(smscreen) {
+
+            @each $class,
+            $spacing in $arrayName {
+                .#{$class} {
+                    #{$style}: (($spacing * $smscreen) / 100);
+                }
+            }
+        }
+    
+        @include mq(laptop) {
+    
+            @each $class,
+            $spacing in $arrayName {
+                .#{$class} {
+                    #{$style}: (($spacing * $laptop) / 100);
+                }
+            }
+        }
+        @include mq(tablet) {
+    
+            @each $class,
+            $spacing in $arrayName {
+                .#{$class} {
+                    #{$style}: (($spacing * $tablet) / 100);
+                }
+            }
+        }
+    
+        @include mq(phablet) {
+    
+            @each $class,
+            $spacing in $arrayName {
+                .#{$class} {
+                    #{$style}: (($spacing * $phablet) / 100);
+                }
+            }
+        }
+        @include mq(mobile) {
+    
+            @each $class,
+            $spacing in $arrayName {
+                .#{$class} {
+                    #{$style}: (($spacing * $mobile) / 100);
+                }
+            }
+        }
+    }
+    @else if($single==x) {
+
+        @each $class,
+        $spacing in $arrayName {
+            .#{$class} {
+                #{$style}-right: #{$spacing};
+                #{$style}-left: #{$spacing};
+                border: 2px solid palevioletred;
+            }
+        }
+        @include mq(smscreen) {
+    
+            @each $class,
+            $spacing in $arrayName {
+                .#{$class} {
+                    #{$style}-right: (($spacing * $smscreen) / 100);
+                    #{$style}-left: (($spacing * $smscreen) / 100);
+                }
+            }
+        }
+        @include mq(laptop) {
+    
+            @each $class,
+            $spacing in $arrayName {
+                .#{$class} {
+                    #{$style}-right: (($spacing * $laptop) / 100);
+                    #{$style}-left: (($spacing * $laptop) / 100);
+                }
+            }
+        }
+        @include mq(tablet) {
+    
+            @each $class,
+            $spacing in $arrayName {
+                .#{$class} {
+                    #{$style}-right: (($spacing * $tablet) / 100);
+                    #{$style}-left: (($spacing * $tablet) / 100);
+                }
+            }
+        }
+    
+        @include mq(phablet) {
+    
+            @each $class,
+            $spacing in $arrayName {
+                .#{$class} {
+                    #{$style}-right: (($spacing * $phablet) / 100);
+                    #{$style}-left: (($spacing * $phablet) / 100);
+                }
+            }
+        }
+        @include mq(mobile) {
+    
+            @each $class,
+            $spacing in $arrayName {
+                .#{$class} {
+                    #{$style}-right: (($spacing * $mobile) / 100);
+                    #{$style}-left: (($spacing * $mobile) / 100);
+                }
+            }
+        }
+        
+    }
+
+    @else if($single==y) {
+
+        @each $class,
+        $spacing in $arrayName {
+            .#{$class} {
+                #{$style}-top: #{$spacing};
+                #{$style}-bottom: #{$spacing};
+            }
+        }
+        @include mq(smscreen) {
+    
+            @each $class,
+            $spacing in $arrayName {
+                .#{$class} {
+                    #{$style}-top: (($spacing * $smscreen) / 100);
+                    #{$style}-bottom: (($spacing * $smscreen) / 100);
+                }
+            }
+        }
+        @include mq(laptop) {
+    
+            @each $class,
+            $spacing in $arrayName {
+                .#{$class} {
+                    #{$style}-top: (($spacing * $tablet) / 100);
+                    #{$style}-bottom: (($spacing * $tablet) / 100);
+                }
+            }
+        }
+    
+        @include mq(tablet) {
+    
+            @each $class,
+            $spacing in $arrayName {
+                .#{$class} {
+                    #{$style}-top: (($spacing * $phablet) / 100);
+                    #{$style}-bottom: (($spacing * $phablet) / 100);
+                }
+            }
+        }
+        @include mq(phablet) {
+    
+            @each $class,
+            $spacing in $arrayName {
+                .#{$class} {
+                    #{$style}-top: (($spacing * $phablet) / 100);
+                    #{$style}-bottom: (($spacing * $phablet) / 100);
+                }
+            }
+        }
+        @include mq(mobile) {
+    
+            @each $class,
+            $spacing in $arrayName {
+                .#{$class} {
+                    #{$style}-top: (($spacing * $mobile) / 100);
+                    #{$style}-bottom: (($spacing * $mobile) / 100);
+                }
+            }
+        }
+
+    }
+
+
+
+
+   
+}
+
+@mixin reducer2($additionalText, $arrayName, $style) {
+
+    @each $class,
+    $css in $arrayName {
+        .#{$additionalText}#{$class} {
+            #{$style}: $css;
+        }
+    }
+}
+
+// Media query
+
+@mixin mq($point) {
+    @if $point==cm1 {
+        @media (min-width: 1400px) {
+            @content ;
+        }
+    }
+
+    @else if $point==cmtab {
+        @media (min-width: 992px) {
+            @content ;
+        }
+    }
+
+    @if $point==smscreen {
+        @media (max-width: 1399px) {
+            @content ;
+        }
+    }
+
+    // edited
+    @if $point==mega {
+        @media (max-width: 1700px) {
+            @content ;
+        }
+    }
+
+    @else if $point==xxl {
+        @media (max-width: 1450px) {
+            @content ;
+        }
+    }
+
+    @else if $point==laptop {
+        @media (max-width: 1199px) {
+            @content ;
+        }
+    }
+
+    @else if $point==tablet {
+        @media (max-width: 991px) {
+            @content ;
+        }
+    }
+
+    @else if $point==phablet {
+        @media (max-width: 767px) {
+            @content ;
+        }
+    }
+
+    @else if $point==mobile {
+        @media (max-width: 575px) {
+            @content ;
+        }
+    }
+
+    @else if $point==small {
+        @media (max-width: 380px) {
+            @content ;
+        }
+
+    }
+}
+.container{
+    @include container()
+}
