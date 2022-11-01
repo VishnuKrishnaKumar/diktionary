@@ -1,0 +1,27 @@
+.container {
+  max-width: 1415px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+@media (max-width: 1399px) {
+  .container {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
+@media (max-width: 991px) {
+  .container {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+@media (max-width: 575px) {
+  .container {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+}
+
+/*Home styles*//*# sourceMappingURL=custom.css.map */
