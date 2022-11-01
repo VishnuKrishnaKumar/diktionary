@@ -2,4 +2,11 @@
     &.logo_large{
         @include mainLogo(219px);
     }
+    &.logo_small{
+        width: 38px;
+        display: block;
+        img{
+            width: 100%;
+        }
+    }
 }

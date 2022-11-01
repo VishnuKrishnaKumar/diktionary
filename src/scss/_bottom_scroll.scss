@@ -1,0 +1,95 @@
+// Bottom Scroll
+
+.bottomScroll {
+    display: block;
+    width: 28px;
+    height: 40px;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    background: transparent;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+
+    span {
+        display: block;
+        width: 3px;
+        height: 10px;
+        position: absolute;
+        left: 50%;
+        top: 30px;
+        transform: translate(-50%, -10px);
+        -webkit-transform: translate(-50%, -10px);
+        -moz-transform: translate(-50%, -10px);
+        -ms-transform: translate(-50%, -10px);
+        -o-transform: translate(-50%, -10px);
+        background: #fff;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        animation: 1.5s drpdown infinite linear;
+        -webkit-animation: 1.5s drpdown infinite linear;
+    }
+}
+
+@keyframes drpdown {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -32px);
+        -webkit-transform: translate(-50%, -32px);
+        -moz-transform: translate(-50%, -32px);
+        -ms-transform: translate(-50%, -32px);
+        -o-transform: translate(-50%, -32px);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translate(-50%, -10px);
+        -webkit-transform: translate(-50%, -10px);
+        -moz-transform: translate(-50%, -10px);
+        -ms-transform: translate(-50%, -10px);
+        -o-transform: translate(-50%, -10px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -7px);
+        -webkit-transform: translate(-50%, -7px);
+        -moz-transform: translate(-50%, -7px);
+        -ms-transform: translate(-50%, -7px);
+        -o-transform: translate(-50%, -7px);
+    }
+}
+
+// Top Scroll
+
+.topScroll {
+    width: 102px;
+    height: 102px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    background: var(--lightblue);
+    border: none;
+    margin-left: auto;
+    display: block;
+    background-color:$lightblue;
+    @include flexCenter();
+}
+img{
+    &.none{
+        display: none;
+    }
+    &.block{
+        display: block;
+    }
+    width: 22px;
+}

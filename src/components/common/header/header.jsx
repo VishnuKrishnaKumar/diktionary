@@ -4,7 +4,7 @@ import Navbar from './navbar/navbar'
 
 const header = () => {
     return (
-        <header className='header'>
+        <header className='header bg__lightblue'>
             <Navbar />
         </header>
     )

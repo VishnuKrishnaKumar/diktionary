@@ -1,4 +1,10 @@
 .navigation_ul{
     display: flex;
     align-items: center;
+    
+    .nav-item{
+        a{
+            color: $darkblue;
+        }
+    }
 }

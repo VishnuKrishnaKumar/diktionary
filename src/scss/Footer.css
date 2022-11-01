@@ -1,0 +1,7 @@
+footer .container {
+  display: flex;
+}
+
+.logo_small img {
+  max-width: 38px;
+}/*# sourceMappingURL=Footer.css.map */

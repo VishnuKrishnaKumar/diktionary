@@ -178,7 +178,8 @@ h6 {
     -ms-transition: .4s;
     -o-transition: .4s;
 }
-section{
+
+section {
     position: relative;
     z-index: 2;
 }
@@ -186,7 +187,7 @@ section{
 
 // header
 .header-wrapper {
-        width: 100%;
+    width: 100%;
     height: auto;
     left: 0;
     top: 0;
@@ -195,7 +196,7 @@ section{
     z-index: 9999;
 
     .main_logo {
-        @include mainLogo(200px , 180px , 140px , 130px , 120px , 100px)
+        @include mainLogo(200px, 180px, 140px, 130px, 120px, 100px)
     }
 
     &.inner-header {
@@ -687,17 +688,56 @@ header.scrolledHead {
 
 }
 
+.btn {
+    line-height: 1.22;
+    margin-top: 3.556em;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+
+    &.btn_blue {
+        background: $darkblue;
+        color: #fff;
+        padding: 27px 32px;
+        border: 1px solid var(--darkblue);
+    }
+}
+
+
+.text-center {
+    text-align: center;
+}
+
+.itl {
+    font-style: italic;
+}
+
+.light {
+    font-weight: 400;
+}
+
+.strong {
+    font-weight: 800;
+}
+
+a.underline {
+    text-decoration: underline;
+}
 
 // color related styles and classes 
 
-$backgroundColor: (orange: orange,
-    blue: blue,
-    red: red,
-    green: green);
+$backgroundColor: (lightblue: $lightblue,
+    darkblue: $darkblue);
 
-$textColor: (red: red,
-    orange: orange,
-    blue:blue,
+$textColor: (lightblue: $lightblue,
+    darkblue: $darkblue,
     black: black,
 );
 
@@ -708,8 +748,8 @@ $textColor: (red: red,
 
 // fontsize_block 
 
-$font-sizes:(text_5xl: 50px,
-    text_4xl: 40px,
+$font-sizes:(text_5xl: 169px,
+    text_4xl: 77px,
     text_3xl: 35px,
     text_2xl: 25px,
     text_xl: 24px,
@@ -724,21 +764,12 @@ $font-sizes:(text_5xl: 50px,
 //MARGIN
 
 // MARGIN TOP
-$marginTop:(r_projects: 135px,
-    footer_bottom: 112px,
-    call_us: 70px,
-    btn_mt: 68px,
-    btn_mt3: 55px,
-    banner_btn_holder: 50px,
-    btn_mt4: 40px,
-    banner_supporter: 24px,
-    btn_mt2: 23px,
-    path_ul: 43px,
+$marginTop:(btm_scroll:82px
 );
 
 // MARGIN RIGHT
 
-$marginRight:(icon_bl: 40px,
+$marginRight:(ft1: 75px
 );
 // MARGIN BOTTOM
 
@@ -759,8 +790,7 @@ $marginLeft:(abcd: 40px,
 
 // MARGIN TOP AND MARGIN BOTTOM
 
-$marginY : (journey_body: 80px,
-    j_body2: 118px);
+$marginY : ();
 
 // MARGIN RIGHT AND MARGIN LEFT
 
@@ -790,8 +820,8 @@ $paddingLeft: (ab: 30px);
 
 // PADDING TOP AND PADDING BOTTOM
 
-$paddingY: (journey_body: 75px,
-    about_data: 30px);
+$paddingY: (banner_cnt: 75px,
+    footer:68px);
 
 // PADDING LEFT AND PADDING RIGHT
 
@@ -840,3 +870,4 @@ $wholePadding:(journey_body: 74px,
 @include reducer(y, $sectionSpacing, padding, 80, 82, 67, 39, 28);
 // whole padding 
 @include reducer(single, $wholePadding, padding);
+

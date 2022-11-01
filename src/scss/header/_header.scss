@@ -1,7 +1,15 @@
-header{
-    .container{
+header {
+    position: fixed;
+    z-index: 22;
+    width: 100%;
+
+    .container {
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        .nav-item {
+            font-weight: 500;
+        }
     }
 }
