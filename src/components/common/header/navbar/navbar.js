@@ -9,12 +9,12 @@ const Navbar = () => {
             <nav>
                 <div className="container">
                     <div className='left'>
-                        <Logo imgSrc="LOGO" to="#" logoSize="logo_large" />
+                        <Logo imgSrc="https://workpreviews.com/vi/diktionary_img/main-logo.svg" to="#" logoSize="logo_large" />
                     </div>                    <div className="right">
                         <ul className="navigation_ul">
                             {Menu.map((item, index) => {
                                 return (
-                                    <li key={index}>
+                                    <li key={index} className="nav-item">
                                         <a href={item.url} className={item.className}>{item.title}</a>
                                     </li>
                                 )

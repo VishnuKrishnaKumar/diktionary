@@ -1,0 +1,5 @@
+.logo{
+    &.logo_large{
+        @include mainLogo(219px);
+    }
+}

@@ -356,7 +356,7 @@
 }
 
 @mixin container() {
-    max-width: 1415px;
+    max-width: 1484px;
     margin-left: auto;
     margin-right: auto;
     padding-left: 30px;
@@ -664,7 +664,6 @@ $imagedir:'../images/';
             .#{$class} {
                 #{$style}-right: #{$spacing};
                 #{$style}-left: #{$spacing};
-                border: 2px solid palevioletred;
             }
         }
         @include mq(smscreen) {
@@ -864,7 +863,4 @@ $imagedir:'../images/';
         }
 
     }
-}
-.container{
-    @include container()
 }
