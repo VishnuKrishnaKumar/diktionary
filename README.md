@@ -1,0 +1,2 @@
+# diktionary
+mini project
