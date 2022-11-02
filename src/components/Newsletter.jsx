@@ -1,18 +1,20 @@
 import React from 'react'
 
 const Newsletter = (
+  {
     title , 
     placeholder , 
     imgSrc,
     name
+  }
 ) => {
     return (
         <>
-            <div class="newsletter_wrap">
-                <h5>{title}</h5>
+            <div className="newsletter_wrap">
+                <h5 className='text_2xl mb'>{title}</h5>
                 <form action="">
                     <input type="text" required="" placeholder={placeholder} name={name} />
-                        <button class="bt"><img src={imgSrc} alt=""/></button>
+                        <button className="bt"><img src={imgSrc} alt=""/></button>
                 </form>
             </div>
         </>

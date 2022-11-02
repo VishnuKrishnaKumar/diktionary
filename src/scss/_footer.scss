@@ -54,9 +54,9 @@ footer {
         }
 
         form {
-            border: 1px solid var(--lightblue);
+            border: 2px solid $lightblue;
             height: 50px;
-            padding: 10px;
+            padding: 0 10px;
             border-radius: 40px;
             -webkit-border-radius: 40px;
             -moz-border-radius: 40px;
@@ -73,9 +73,20 @@ footer {
             border: none;
         }
     }
-    form{
-        border: 1px solid $lightblue    ;
+
+    .footer_link_group {
+        @include flexWidth(33.33%);
+    }
+    .newsletter_wrap{
+        @extend .footer_link_group;
+        flex-direction: column;
     }
 
 
+}
+
+.text_2xl {
+    &.mb {
+        margin-bottom: 0.68em;
+    }
 }
