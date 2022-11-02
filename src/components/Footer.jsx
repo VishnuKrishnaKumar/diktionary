@@ -24,7 +24,7 @@ const Footer = () => {
                             </ul>
                         </div>
                     </div>
-                    <Newsletter title="Newsletter" imgSrc="https://workpreviews.com/vi/diktionary_img/right_arrow_white.svg" name="newsletter" placeholder="demo"/>
+                    <Newsletter title="Newsletter"/>
                     <Dropdown button_type="topScroll" imgSrc="https://workpreviews.com/vi/diktionary_img/blue_arrow_up.svg" />
                 </div>
             </footer>

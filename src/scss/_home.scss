@@ -641,52 +641,10 @@ header.scrolledHead {
         }
     }
 }
-
-.grid {
-    @include grid(row, 3, 23px);
-
-    @include mq(phablet) {
-        @include grid(row, 2, 18px)
-    }
-
-    @include mq(mobile) {
-        @include grid(column, $full: true)
-    }
-
+.sm_container{
+    @include container(1324px)
 }
 
-// grid
-
-.vertical_wrap {
-    @include grid(row, 2, 36px);
-    width: 100%;
-    align-items: center;
-
-    @include mq(smscreen) {
-        flex-direction: column;
-        @include grid(column, 1, 30px);
-
-        .main_cnt {
-            padding-right: 0;
-        }
-    }
-
-    .distributed_cnt {
-        .grid {
-            @include grid(row, 2, 60px, center, 40px)
-        }
-
-    }
-
-    @include mq(phablet) {
-        .distributed_cnt {
-            .grid {
-                @include grid(row, 1, 22px)
-            }
-        }
-    }
-
-}
 
 .btn {
     line-height: 1.22;
@@ -750,13 +708,13 @@ $textColor: (lightblue: $lightblue,
 
 $font-sizes:(text_5xl: 169px,
     text_4xl: 77px,
-    text_3xl: 35px,
-    text_2xl: 25px,
-    text_xl: 24px,
-    text_lg: 22px,
-    text_base: 18px,
-    text_sm: 16px,
-    text_xs: 15px);
+    text_3xl: 63px,
+    text_2xl: 0,
+    text_xl: 0,
+    text_lg: 30px,
+    text_base: 0,
+    text_sm: 0,
+    text_xs: 0);
 
 
 @include reducer(single, $font-sizes, font-size);
@@ -764,7 +722,8 @@ $font-sizes:(text_5xl: 169px,
 //MARGIN
 
 // MARGIN TOP
-$marginTop:(bottomScroll:82px
+$marginTop:(bottomScroll:82px , 
+sm_searchbox:40px
 );
 
 // MARGIN RIGHT
@@ -829,7 +788,7 @@ $paddingX: ();
 
 // SECTION SPACING
 
-$sectionSpacing:(spacing1: 135px,
+$sectionSpacing:(spacing1: 220px,
     spacing2: 148px,
     spacing3: 233px,
     spacing4: 295px,
@@ -871,3 +830,18 @@ $wholePadding:(journey_body: 74px,
 // whole padding 
 @include reducer(single, $wholePadding, padding);
 
+.text_3xl{
+    &.mb{
+        display: block;
+        margin-bottom: 1.38rem;
+    }
+}
+.text_lg{
+    &.mt{
+        display: block;
+        margin-top: 2.2em;
+    }
+}
+.l-standard{
+    line-height: 1.3;
+}

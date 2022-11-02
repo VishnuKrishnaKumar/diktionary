@@ -1,0 +1,5 @@
+.word{
+    .grid_box{
+        @include  grid(2 , 106px);
+    }
+}

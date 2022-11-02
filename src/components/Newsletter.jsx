@@ -1,21 +1,16 @@
 import React from 'react'
+import InputBlock from './InputBlock'
 
 const Newsletter = (
-  {
-    title , 
-    placeholder , 
-    imgSrc,
-    name
-  }
+    {
+        title
+    }
 ) => {
     return (
         <>
             <div className="newsletter_wrap">
                 <h5 className='text_2xl mb'>{title}</h5>
-                <form action="">
-                    <input type="text" required="" placeholder={placeholder} name={name} />
-                        <button className="bt"><img src={imgSrc} alt=""/></button>
-                </form>
+                <InputBlock placeholder="demo" name="name" theme="darkblue_theme" imgSrc="https://workpreviews.com/vi/diktionary_img/right_arrow_white.svg" />
             </div>
         </>
     )

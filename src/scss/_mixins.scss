@@ -177,93 +177,91 @@
 
 // grid
 
-
-@mixin grid($direction: row, $column:3, $spacing: 15px, $alignment:left,
-    $bottomSpacing:24px, $full:false, $mb: 24px, $swapped: false, $widthChange: false, $wchange_no:2, $wchange: 50%) {
+@mixin grid($column:3, $spacing: 15px, $alignment:left, $swapped: false, $length:1) {
     display: flex;
     flex-wrap: wrap;
     justify-content: $alignment;
 
     $col: $spacing * ($column - 1);
 
-    @if($direction==row) {
+    &>li {
+        @include flexWidth(calc((100% - #{$col}) / $column));
+        margin-bottom: $spacing;
+        margin-right: $spacing;
+        list-style: none;
 
-        &>* {
-            max-width: calc((100% - #{$col}) / $column);
-            flex-basis: calc((100% - #{$col}) / $column);
-            margin-bottom: $spacing;
+        &:nth-child(1n) {
             margin-right: $spacing;
-
-            &:nth-child(#{$column + 1}n) {
-                margin-right: $spacing;
-                ;
-            }
-
-            &:nth-child(#{$column}n) {
-                margin-right: 0;
-            }
-
-            &:last-child {
-                margin-right: 0;
-            }
-
-            @include mq(mobile) {
-
-                &:nth-child(#{$column}n) {
-                    margin-right: $spacing;
-                }
-
-            }
-        }
-    }
-
-    @else {
-        flex-direction: column;
-
-        &:nth-child(#{$column + 1}n) {
-            margin-right: 0;
         }
 
         &:nth-child(#{$column}n) {
             margin-right: 0;
         }
+    }
 
-        &>* {
+    @if ($column==1) {
+        &>li {
             margin-right: 0;
             margin-bottom: $spacing;
-            @include flexWidth(100%);
         }
     }
 
-    @if $full {
-        &>* {
-            max-width: 100% !important;
-            flex-basis: 100% !important;
-            margin-right: 0 !important;
+    @if($swapped) {
+        @if($length==2) {
+            & {
+                flex-direction: row-reverse;
+
+                &>li:nth-child(1n) {
+                    margin-right: 0;
+                }
+
+                &>li:first-child {
+                    margin-right: 0;
+                }
+
+                &>li:last-child {
+                    margin-right: $spacing;
+                }
+            }
+        }
+    }
+}
+
+// only for ul and
+
+
+// 2 elements with different size grid .    
+
+@mixin wChangeGrid($no_Items2 :true, $spacing : 20px, $width1 : 70%) {
+    display: flex;
+    flex-wrap: wrap;
+
+    $secondWidth: calc((100% - $width1) - $spacing);
+
+    &>li {
+        &:nth-child(odd) {
+            @include flexWidth($width1);
+        }
+
+        &:nth-child(even) {
+            @include flexWidth($secondWidth);
+            margin-left: $spacing;
         }
     }
 
-    @if $swapped {
-
-        &>figure {
-            margin-top: $spacing;
-
-        }
-    }
-
-    @if $widthChange {
+    @if ($no_Items2==false) {
         &>li {
-            margin-right: $spacing;
-
-            &:nth-child(-n+ #{$wchange_no}) {
-                @include flexWidth(calc($wchange - $spacing));
-                margin-right: 0;
+            &:nth-child(1n) {
+                @include flexWidth(100%);
+                margin-left: 0;
+                margin-bottom: $spacing;
             }
         }
     }
 }
 
 // changed width 2 column
+
 @mixin gridChange($spacing:20px, $w1:59%, $w2:41%) {
     display: flex;
     flex-wrap: wrap;
@@ -355,8 +353,8 @@
     }
 }
 
-@mixin container() {
-    max-width: 1484px;
+@mixin container($width: 1415px) {
+    max-width: $width;
     margin-left: auto;
     margin-right: auto;
     padding-left: 30px;
@@ -488,31 +486,6 @@ $imagedir:'../images/';
     }
 }
 
-@mixin mainLogo($width: 209px  , $smscreen: 180px  , $laptop: 140px  , $tablet: 120px  , $phablet:120px, $mobile:100px){
-    max-width: $width;
-    display: block;
-    img{
-        @include full(contain);
-    }
-    @include mq(smscreen) {
-        max-width: $smscreen
-    }
-
-    @include mq(laptop) {
-        max-width: $laptop;
-    }
-
-    @include mq(tablet) {
-        max-width: $tablet;
-    }
-
-    @include mq(phablet) {
-        max-width: $phablet;
-    }
-    @include mq(mobile) {
-        max-width: $mobile;
-    }
-}
 // Media Height 
 
 @mixin mediaHeight() {
@@ -589,6 +562,35 @@ $imagedir:'../images/';
     }
 }
 
+@mixin mainLogo($width: 209px, $smscreen: 180px, $laptop: 140px, $tablet: 120px, $phablet:120px, $mobile:100px) {
+    max-width: $width;
+    display: block;
+
+    img {
+        @include full(contain);
+    }
+
+    @include mq(smscreen) {
+        max-width: $smscreen
+    }
+
+    @include mq(laptop) {
+        max-width: $laptop;
+    }
+
+    @include mq(tablet) {
+        max-width: $tablet;
+    }
+
+    @include mq(phablet) {
+        max-width: $phablet;
+    }
+
+    @include mq(mobile) {
+        max-width: $mobile;
+    }
+}
+
 // responsive
 
 @mixin reducer($single,
@@ -599,7 +601,7 @@ $imagedir:'../images/';
     $tablet:80,
     $phablet:72,
     $mobile:68) {
-  
+
 
     @if($single==single) {
 
@@ -609,6 +611,7 @@ $imagedir:'../images/';
                 #{$style}: $spacing;
             }
         }
+
         @include mq(smscreen) {
 
             @each $class,
@@ -618,9 +621,9 @@ $imagedir:'../images/';
                 }
             }
         }
-    
+
         @include mq(laptop) {
-    
+
             @each $class,
             $spacing in $arrayName {
                 .#{$class} {
@@ -628,8 +631,9 @@ $imagedir:'../images/';
                 }
             }
         }
+
         @include mq(tablet) {
-    
+
             @each $class,
             $spacing in $arrayName {
                 .#{$class} {
@@ -637,9 +641,9 @@ $imagedir:'../images/';
                 }
             }
         }
-    
+
         @include mq(phablet) {
-    
+
             @each $class,
             $spacing in $arrayName {
                 .#{$class} {
@@ -647,8 +651,9 @@ $imagedir:'../images/';
                 }
             }
         }
+
         @include mq(mobile) {
-    
+
             @each $class,
             $spacing in $arrayName {
                 .#{$class} {
@@ -657,6 +662,7 @@ $imagedir:'../images/';
             }
         }
     }
+
     @else if($single==x) {
 
         @each $class,
@@ -666,8 +672,9 @@ $imagedir:'../images/';
                 #{$style}-left: #{$spacing};
             }
         }
+
         @include mq(smscreen) {
-    
+
             @each $class,
             $spacing in $arrayName {
                 .#{$class} {
@@ -676,8 +683,9 @@ $imagedir:'../images/';
                 }
             }
         }
+
         @include mq(laptop) {
-    
+
             @each $class,
             $spacing in $arrayName {
                 .#{$class} {
@@ -686,8 +694,9 @@ $imagedir:'../images/';
                 }
             }
         }
+
         @include mq(tablet) {
-    
+
             @each $class,
             $spacing in $arrayName {
                 .#{$class} {
@@ -696,9 +705,9 @@ $imagedir:'../images/';
                 }
             }
         }
-    
+
         @include mq(phablet) {
-    
+
             @each $class,
             $spacing in $arrayName {
                 .#{$class} {
@@ -707,8 +716,9 @@ $imagedir:'../images/';
                 }
             }
         }
+
         @include mq(mobile) {
-    
+
             @each $class,
             $spacing in $arrayName {
                 .#{$class} {
@@ -717,7 +727,7 @@ $imagedir:'../images/';
                 }
             }
         }
-        
+
     }
 
     @else if($single==y) {
@@ -729,8 +739,9 @@ $imagedir:'../images/';
                 #{$style}-bottom: #{$spacing};
             }
         }
+
         @include mq(smscreen) {
-    
+
             @each $class,
             $spacing in $arrayName {
                 .#{$class} {
@@ -739,8 +750,9 @@ $imagedir:'../images/';
                 }
             }
         }
+
         @include mq(laptop) {
-    
+
             @each $class,
             $spacing in $arrayName {
                 .#{$class} {
@@ -749,9 +761,9 @@ $imagedir:'../images/';
                 }
             }
         }
-    
+
         @include mq(tablet) {
-    
+
             @each $class,
             $spacing in $arrayName {
                 .#{$class} {
@@ -760,8 +772,9 @@ $imagedir:'../images/';
                 }
             }
         }
+
         @include mq(phablet) {
-    
+
             @each $class,
             $spacing in $arrayName {
                 .#{$class} {
@@ -770,8 +783,9 @@ $imagedir:'../images/';
                 }
             }
         }
+
         @include mq(mobile) {
-    
+
             @each $class,
             $spacing in $arrayName {
                 .#{$class} {
@@ -786,8 +800,10 @@ $imagedir:'../images/';
 
 
 
-   
+
 }
+
+
 
 @mixin reducer2($additionalText, $arrayName, $style) {
 
